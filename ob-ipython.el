@@ -508,7 +508,6 @@ a new kernel will be started."
 ;; babel framework
 
 (add-to-list 'org-src-lang-modes '("ipython" . python))
-(add-hook 'org-mode-hook 'ob-ipython-auto-configure-kernels)
 
 (defvar ob-ipython-configured-kernels nil)
 
@@ -584,6 +583,7 @@ have previously been configured."
 (defun org-babel-execute:ipython (body params)
   "Execute a block of IPython code with Babel.
 This function is called by `org-babel-execute-src-block'."
+  (ob-ipython-auto-configure-kernels)
   (ob-ipython--clear-output-buffer)
   (if (cdr (assoc :async params))
       (ob-ipython--execute-async body params)
